@@ -588,6 +588,8 @@ class GaussianDiffusion:
         )
         if cond_fn is not None:
             out = self.condition_score(cond_fn, out_orig, x, t, model_kwargs=model_kwargs)
+        else:
+            out = out_orig
 
         # Usually our model outputs epsilon, but we re-derive it
         # in case we used x_start or x_prev prediction.
@@ -641,6 +643,8 @@ class GaussianDiffusion:
             if cond_fn is not None:
                 out = self.condition_score_with_grad(cond_fn, out_orig, x, t,
                                                      model_kwargs=model_kwargs)
+            else:
+                out = out_orig
 
         out["pred_xstart"] = out["pred_xstart"].detach()
 
